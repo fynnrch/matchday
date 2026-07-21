@@ -64,12 +64,12 @@ app.get("/dashboard", auth.requireAuth_PAGE, (req, res) => {
     res.sendFile(path.join(__dirname, "pages/dashboard.html"));
 });
 
-app.get("/teams", auth.requireAuth_PAGE, (req, res) => {
-    res.sendFile(path.join(__dirname, "pages/teams.html"));
+app.get("/teammanagement", auth.requireAuth_PAGE, (req, res) => {
+    res.sendFile(path.join(__dirname, "pages/teammanagement.html"));
 });
 
-app.get("/pool", auth.requireAuth_PAGE, (req, res) => {
-    res.sendFile(path.join(__dirname, "pages/pool.html"));
+app.get("/talentpool", auth.requireAuth_PAGE, (req, res) => {
+    res.sendFile(path.join(__dirname, "pages/talentpool.html"));
 });
 
 // ======

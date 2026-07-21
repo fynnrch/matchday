@@ -18,17 +18,17 @@ setInterval(refreshCookie, 1000 * 60 * 14);
 // =====================
 
 const asideBtnDashboard = document.getElementById("asideBtnDashboard");
-const asideBtnTeams = document.getElementById("asideBtnTeams");
-const asideBtnPool = document.getElementById("asideBtnPool");
+const asideBtnTeamManagement = document.getElementById("asideBtnTeamManagement");
+const asideBtnTalentPool = document.getElementById("asideBtnTalentPool");
 
 asideBtnDashboard.addEventListener("click", () => {
     window.location.href = "/dashboard";
 });
 
-asideBtnTeams.addEventListener("click", () => {
-    window.location.href = "/teams";
+asideBtnTeamManagement.addEventListener("click", () => {
+    window.location.href = "/teammanagement";
 });
 
-asideBtnPool.addEventListener("click", () => {
-    window.location.href = "/pool";
+asideBtnTalentPool.addEventListener("click", () => {
+    window.location.href = "/talentpool";
 });

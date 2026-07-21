@@ -1,75 +1,157 @@
+* {
+    box-sizing: border-box;
+}
+
+/*===root===*/
+:root {
+    --bg:#0f172a;
+    --panel:#172033;
+    --panel-2:#202b40;
+    --text:#f8fafc;
+    --muted:#94a3b8;
+    --accent:#22c55e;
+    --accent-2:#38bdf8;
+    --danger:#ef4444;
+    --line:#334155;
+    --shadow:0 12px 32px rgba(0,0,0,.25);
+    --radius:18px;
+}
+
+/* general */
+button {
+    font: inherit;
+}
+
+/*===body===*/
 body {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    
-    overflow-x: hidden;
-    overflow-y: hidden;
-
     display: flex;
-    height: 100vh;
-
+    min-height: 100dvh;
     margin: 0;
+
+    font-family: Inter, system-ui, sans-serif;
+    color: var(--text);
+
+    background:
+        radial-gradient(circle at center,
+        rgba(255,255,255,.025) 0%,
+        rgba(0,0,0,.16) 68%,
+        rgba(0,0,0,.48) 100%
+        ),
+        repeating-linear-gradient(
+        90deg,
+        #174d2a 0,
+        #174d2a 95px,
+        #1b5930 95px,
+        #1b5930 190px
+        );
+    background-attachment:fixed;
 }
 
-main {
-  flex: 1;
+/*===aside===*/
+.aside-menu {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0 15px 0 15px;
+    width: 250px;
+    min-height: 100vh;
+    gap: 25px;
+
+    transition: .2s ease;
+    overflow: hidden;
+
+    background-color: var(--bg);
+    border-right: 2px solid var(--line);
 }
 
-img {
-    max-width: 100%;
-    height: auto;
+.aside-menu.collapsed {
+    width: 76px;
 }
 
-.hidden {
-  display: none !important;
+.aside-menu.collapsed .textToVanish {
+    display: none;
 }
 
-/* Aside */
-aside {
-  display: flex;
-  flex-direction: column;
-
-  background-color: black;
-  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.5);
+.aside-menu.collapsed .asideButton {
+    padding-right: 125%;
 }
 
-.asideBtn {
-  display: flex;
-  flex-direction: row;
+#asideHead {
+    display: flex;
+    align-items: center;
 
-  justify-content: left;
-  align-items: center;
-
-  margin: 10px 10px 0 10px;
-  gap: 0.5vw;
-
-  background-color: white;
-  border-radius: 15px;
-  border: 2px solid black;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-
-  cursor: pointer;
+    margin-top: 15px;
+    gap: 15px;
 }
 
-.asideBtn img {
-  width: 3vw;
+#asideHead h2 {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    white-space: nowrap;
 }
 
-.asideBtn p {
-  margin-right: 0.5vw;
+#toggleAsideMenu {
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    padding: 0;
 
-  font-size: 15px;
-  font-weight: bold;
+    justify-content: center;
+    font-size: 22px;
 }
 
-.current {
-  background-color: #e6f0ff;
-  border: 2px solid #4a90e2;
-  box-shadow: 0 0 15px rgba(74, 144, 226, 0.5);
+#asideButtonList {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
 }
 
-.current p {
-  color: #4a90e2;
+.asideButton {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    min-height: 46px;
+    padding: 10px 12px;
+    gap: 12px;
+
+    color: var(--muted);
+    background-color: transparent;
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition:
+        color .2s ease,
+        background-color .2s ease,
+        border-color .2s ease,
+        transform .2s ease;
+}
+
+.asideButton:hover {
+    color: var(--text);
+    background-color: var(--panel-2);
+    border-color: var(--line);
+    transform: translateX(2px);
+}
+
+.asideButton.active {
+    color: var(--text);
+    background-color: var(--panel-2);
+    border-color: var(--line);
+}
+
+.asideButton strong {
+    font-size: 20px;
+}
+
+.textToVanish {
+    margin: 0;
+    white-space: nowrap;
 }
