@@ -1,0 +1,102 @@
+body {
+    background-image: url("/assets/img/indexBackground.png");
+}
+
+.imgLogo {
+    width: 50%;
+}
+
+.imgButton {
+    width: 50%;
+
+    background-color: white;
+
+    border-radius: 25px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.form-container {
+    display: flex;
+    flex-direction: row;
+
+    min-height: 100vh;
+}
+
+.half-page {
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    align-items: center;
+    
+    flex: 1;
+
+    background-color: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.half-page-smallBG {
+    display: flex;
+    flex-direction: column;
+    
+    justify-content: center;
+    align-items: center;
+    
+    flex: 1;
+}
+
+.left {
+    border-radius: 0 25px 25px 0;
+}
+
+.right {
+    border-radius: 25px 0 0 25px;
+}
+
+.form {
+    transform: scale(1.4);
+    padding: 10px;
+
+    border: 2px solid grey;
+    border-radius: 15px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.form-pair {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-pair p {
+    margin: 0 10px 10px 10px;
+    
+    font-size: 15px;
+}
+
+input {
+    border: 2px solid grey;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.invalid {
+    color: red;
+}
+
+.invalid input {
+    border: 2px solid red;
+    box-shadow: 0 2px 5px rgba(255, 0, 0, 0.2);
+}
+
+.invalid input:focus {
+    outline: none;
+}
+
+#registerAbbreviation {
+    text-transform: uppercase;
+}
+
+#registerAbbreviation::placeholder {
+    text-transform: none;
+}

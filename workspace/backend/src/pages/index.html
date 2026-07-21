@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Matchday</title>
+    
+    <link rel="stylesheet" href="/assets/css/generic.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
+    
+    <link rel="icon" type="image/x-icon" href="/assets/img/favicon.ico">
+</head>
+<body>
+    <div class="form-container">
+        <!-- Register form -->
+        <div class="half-page left hidden">
+            <img class="imgLogo" src="/assets/img/matchdayLogo.png" alt="Matchday logo">
+
+            <form class="form" id="registerForm">
+                <!-- User -->
+                <div class="form-pair">
+                    <input type="email" id="registerEmail" placeholder="Email" required>
+                    <p id="registerStatusEmail"></p>
+                </div>
+
+                <div class="form-pair">
+                    <input type="text" id="registerUsername" placeholder="Username" maxlength="64" minlength="3" required>
+                    <p id="registerStatusUsername"></p>
+                </div>
+
+                <div class="form-pair">
+                    <input type="password" id="registerPassword" placeholder="Password" maxlength="128" minlength="8" autocomplete="new-password" required>
+                    <p id="registerStatusPassword"></p>
+                </div>
+
+                <!-- Club -->
+                <div class="form-pair">
+                    <input type="text" id="registerClubname" placeholder="Club name" maxlength="64" minlength="3" required>
+                    <p id="registerStatusClubname"></p>
+                </div>
+                
+                <div class="form-pair">
+                    <input type="text" id="registerAbbreviation" placeholder="Club abbreviation" maxlength="5" minlength="5" required>
+                    <p id="registerStatusAbbreviation"></p>
+                </div>
+
+                <div class="form-pair">
+                    <button type="submit" id="registerSubmit">Register</button>
+                    <p id="registerStatusSubmit"></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="half-page-smallBG left">
+            <img class="imgButton" id="imgSignUp" src="/assets/img/indexSignUp.png" alt="Sign up img">
+        </div>
+
+        <!-- Login form -->
+        <div class="half-page right">
+            <img class="imgLogo" src="/assets/img/matchdayLogo.png" alt="Matchday logo">
+
+            <form class="form" id="loginForm">
+                <div class="form-pair">
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                    <p id="loginStatusEmail"></p>
+                </div>
+
+                <div class="form-pair">
+                    <input type="password" id="loginPassword" placeholder="Password" maxlength="128" minlength="8" autocomplete="current-password" required>
+                    <p id="loginStatusPassword"></p>
+                </div>
+
+                <div class="form-pair">
+                    <button type="submit" id="loginSubmit">Login</button>
+                    <p id="loginStatusSubmit"></p>
+                </div>
+            </form>
+        </div>
+
+        <div class="half-page-smallBG right hidden">
+            <img class="imgButton" id="imgLogIn" src="/assets/img/indexLogIn.png" alt="Log in img">
+        </div>
+    </div>
+
+    <script src="/assets/js/index.js" defer></script>
+</body>

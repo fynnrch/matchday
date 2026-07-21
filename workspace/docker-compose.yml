@@ -1,0 +1,76 @@
+services:
+
+    nginx:
+        image: nginx:stable
+
+        restart: no
+
+        ports:
+            - "80:80"
+            - "443:443"
+
+        volumes:
+            - ./nginx/conf.d:/etc/nginx/conf.d:ro
+            - ./nginx/certs:/etc/nginx/certs:ro
+
+        depends_on:
+            - backend
+
+        networks:
+            - frontend
+
+    backend:
+        build: ./backend
+
+        restart: no
+
+        depends_on:
+            - mariadb
+
+        networks:
+            - frontend
+            - backend
+
+    external:
+        build: ./external
+
+        restart: no
+
+        depends_on:
+            - mariadb
+
+        networks:
+            - external
+
+    mariadb:
+        image: mariadb:11
+
+        restart: no
+
+        # in Production Ports auskommentieren
+        ports:
+            - "3306:3306"
+
+        environment:
+            MARIADB_ROOT_PASSWORD: root
+
+        volumes:
+            - mariadb_data:/var/lib/mysql
+
+        networks:
+            - backend
+            - external
+    
+volumes:
+    mariadb_data:
+
+networks:
+    frontend:
+
+    # in Production internal zulassen
+    backend:
+        #internal: true
+
+    # in Production internal zulassen
+    external:
+        #internal: true
