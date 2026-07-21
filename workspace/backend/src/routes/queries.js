@@ -12,7 +12,7 @@ export default class Queries {
     }
 
     regEndpoint_checkEmail() {
-        this.app.post("/queries/checkEmail", async (req, res) => {
+        this.app.post("/api/queries/checkEmail", async (req, res) => {
             try {    
                 const { inp } = req.body;
 
@@ -41,7 +41,7 @@ export default class Queries {
     }
 
     regEndpoint_checkUsername() {
-        this.app.post("/queries/checkUsername", async (req, res) => {
+        this.app.post("/api/queries/checkUsername", async (req, res) => {
             try {    
                 const { inp } = req.body;
 
@@ -71,7 +71,7 @@ export default class Queries {
     }
 
     regEndpoint_checkClubname() {
-        this.app.post("/queries/checkClubname", async (req, res) => {
+        this.app.post("/api/queries/checkClubname", async (req, res) => {
             try {
                 const { inp } = req.body;
 
@@ -101,7 +101,7 @@ export default class Queries {
     }
 
     regEndpoint_checkAbbreviation() {
-        this.app.post("/queries/checkAbbreviation", async (req, res) => {
+        this.app.post("/api/queries/checkAbbreviation", async (req, res) => {
             try {
                 const { inp } = req.body;
 

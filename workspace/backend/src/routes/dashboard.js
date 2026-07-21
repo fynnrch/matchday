@@ -10,7 +10,7 @@ export default class Dashboard {
     }
 
     regEndpoint_Index() {
-        this.app.get("/dashboard/wasauchimmer", this.auth.requireAuth_API, (req, res) => {
+        this.app.get("/api/dashboard/wasauchimmer", this.auth.requireAuth_API, (req, res) => {
             return res.json({ res: "Protected data", user: req.auth });
         });
     }

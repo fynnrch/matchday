@@ -15,7 +15,7 @@ export default class Auth {
     }
 
     regEndpoint_Register() {
-        this.app.post("/auth/register", async (req, res) => {
+        this.app.post("/api/auth/register", async (req, res) => {
             let connection;
 
             try {
@@ -111,7 +111,7 @@ export default class Auth {
     }
 
     regEndpoint_Login() {
-        this.app.post("/auth/login", async (req, res) => {
+        this.app.post("/api/auth/login", async (req, res) => {
             try {
                 const { inpEmail, inpPassword } = req.body;
 
@@ -164,7 +164,7 @@ export default class Auth {
     }
 
     regEndpoint_Refresh() {
-        this.app.post("/auth/refresh", this.requireAuth_API, async (req, res) => {
+        this.app.post("/api/auth/refresh", this.requireAuth_API, async (req, res) => {
             try {
                 const token = jwt.sign(
                     {
@@ -190,7 +190,7 @@ export default class Auth {
     }
 
     regEndpoint_Logout() {
-        this.app.post("/auth/logout", (req, res) => {
+        this.app.post("/api/auth/logout", (req, res) => {
             res.clearCookie("token", {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",

@@ -3,7 +3,7 @@
 // ==============
 
 async function refreshCookie() {
-  const response = await fetch("/auth/refresh", {
+  const response = await fetch("/api/auth/refresh", {
       method: "POST",
       credentials: "include"
   });
@@ -100,7 +100,7 @@ loginPassword.addEventListener("input", (inp) => {clearTimeout(timeoutLoginPassw
 // ==============
 
 async function checkAvailability(inp, statusLabel, endpoint) {
-  const response = await fetch("/queries/" + endpoint, {
+  const response = await fetch("/api/queries/" + endpoint, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -172,7 +172,7 @@ document.getElementById("registerForm").addEventListener("submit", async (e) => 
     }
   }
 
-  const response = await fetch("/auth/register", {
+  const response = await fetch("/api/auth/register", {
     method: "POST",
     credentials: "include",
     headers: {
@@ -218,7 +218,7 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
     }
   }
 
-  const response = await fetch("/auth/login", {
+  const response = await fetch("/api/auth/login", {
     method: "POST",
     credentials: "include",
     headers: {
