@@ -1,0 +1,972 @@
+/* =========================
+   MAIN
+========================= */
+
+main {
+    flex: 1;
+
+    min-width: 0;
+    min-height: 0;
+
+    height: 100dvh;
+
+    margin: 0;
+    padding: 0 clamp(15px, 5vw, 100px) 25px;
+
+    overflow: hidden;
+}
+
+main > .verticalContainer {
+    height: 100%;
+    min-height: 0;
+
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+
+    overflow: hidden;
+}
+
+main > .verticalContainer > .horizontalContainer {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+}
+
+main > .verticalContainer > .horizontalContainer > .verticalContainer {
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+
+    overflow: hidden;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+/* =========================
+   HEADER
+========================= */
+
+#header {
+    margin: 20px 0 20px 0;
+    padding: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* =========================
+   PANELS
+========================= */
+
+.panel {
+    min-width: 0;
+    min-height: 0;
+
+    padding: 15px;
+
+    color: var(--text);
+    background-color: color-mix(
+        in srgb,
+        transparent 5%,
+        var(--bg)
+    );
+
+    border: 1px solid var(--line);
+    border-radius: 10px;
+}
+
+.panel p {
+    margin: 0;
+}
+
+#playerPanel {
+    height: 100%;
+    min-height: 0;
+
+    display: grid;
+    grid-template-rows:
+        auto
+        minmax(0, 1fr)
+        auto;
+
+    gap: 10px;
+
+    overflow: hidden;
+}
+
+#detailsPanel {
+    flex: 2;
+    min-height: 0;
+    overflow: hidden;
+}
+
+#tacticsPanel {
+    flex: 3;
+    min-height: 0;
+    overflow: hidden;
+}
+
+/* =========================
+   PLAYER CONTAINER
+========================= */
+
+#playerContainer {
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding-right: 6px;
+
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+}
+
+#playerContainer > .player {
+    flex: 0 0 auto;
+}
+
+/* =========================
+   PLAYER
+========================= */
+
+.player {
+    padding: 15px;
+
+    background-color: var(--panel-2);
+
+    border: 1px solid transparent;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.1s ease,
+        background-color 0.1s ease;
+}
+
+.player:hover {
+    border-color: color-mix(
+        in srgb,
+        white 25%,
+        var(--line)
+    );
+}
+
+.player.active {
+    border-color: var(--accent);
+
+    background-color: color-mix(
+        in srgb,
+        var(--accent) 25%,
+        transparent
+    );
+}
+
+.playerPanelFooter .inline {
+    flex-wrap: wrap;
+}
+
+/* =========================
+   PLAYER CONTENT
+========================= */
+
+.head-paragraph {
+    padding: 5px;
+    font-size: clamp(18px, 2vw, 22px);
+}
+
+.position {
+    padding: 4px 8px;
+
+    background-color: var(--bg);
+
+    border: 1px solid var(--line);
+    border-radius: 20px;
+}
+
+#teamDescr {
+    padding-left: 5px;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+#playerContainer::-webkit-scrollbar {
+    width: 8px;
+}
+
+#playerContainer::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#playerContainer::-webkit-scrollbar-thumb {
+    background-color: var(--line);
+    border-radius: 10px;
+}
+
+#playerContainer::-webkit-scrollbar-thumb:hover {
+    background-color: var(--muted);
+}
+
+/* =========================
+   TABS
+========================= */
+
+.tab {
+    position: relative;
+    border: none;
+    background: transparent;
+    color: #8e9aad;
+    padding: 10px 9px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color .2s ease;
+}
+
+.tab:hover {
+    color: #d8e3f0;
+}
+
+.tab.active {
+    color: white;
+}
+
+.tab.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: #38bdf8;
+}
+
+/* =========================
+   MULTI-SELECTION
+========================= */
+
+.multi-selection {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: 0.9rem;
+    padding: 2.5rem;
+
+    box-sizing: border-box;
+    overflow: hidden;
+
+    text-align: center;
+
+    border: 1px solid rgba(52, 211, 153, 0.3);
+    border-radius: 16px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(16, 185, 129, 0.09),
+            transparent 55%
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            transparent 0 34px,
+            rgba(52, 211, 153, 0.045) 34px 38px
+        ),
+        linear-gradient(
+            145deg,
+            #183b34,
+            #102c29
+        );
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        inset 0 0 60px rgba(16, 185, 129, 0.05);
+}
+
+.multi-selection::before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+
+    border: 1px solid rgba(52, 211, 153, 0.08);
+    border-radius: 11px;
+
+    pointer-events: none;
+}
+
+.multi-selection::after {
+    content: "";
+    position: absolute;
+
+    width: 240px;
+    height: 240px;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    border-radius: 50%;
+
+    background: rgba(16, 185, 129, 0.035);
+    filter: blur(8px);
+
+    pointer-events: none;
+}
+
+.multi-selection > * {
+    position: relative;
+    z-index: 1;
+}
+
+.multi-selection .player-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 82px;
+    padding: 0.4rem 0.9rem;
+
+    border: 1px solid rgba(52, 211, 153, 0.22);
+    border-radius: 999px;
+
+    background: rgba(16, 185, 129, 0.16);
+    color: #6ee7b7;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.multi-selection h2 {
+    margin: 0;
+
+    color: #f8fafc;
+
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    font-weight: 750;
+    line-height: 1.15;
+
+    letter-spacing: -0.02em;
+}
+
+.multi-selection p {
+    max-width: 540px;
+    margin: 0;
+
+    color: #a8c3bd;
+
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+
+
+
+
+/* =========================
+   FOOTBALL PITCH
+========================= */
+
+#tacticsPanel {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+    min-height: 0;
+
+    overflow: hidden;
+}
+
+.football-pitch {
+    position: relative;
+
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-rows: repeat(7, minmax(0, 1fr));
+
+    min-width: 0;
+    min-height: 0;
+    width: 100%;
+    height: 100%;
+    
+    gap: 4px;
+    padding: clamp(8px, 1.2vw, 14px);
+
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 18px;
+
+    background:
+        repeating-linear-gradient(
+            90deg,
+            #19763d 0,
+            #19763d 12.5%,
+            #218548 12.5%,
+            #218548 25%
+        );
+}
+
+.position-slot {
+    position: relative;
+    z-index: 2;
+
+    align-self: center;
+    justify-self: center;
+
+    width: min(88%, 64px);
+    height: min(78%, 54px);
+    min-width: 0;
+    min-height: 38px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 5px;
+
+    overflow: hidden;
+
+    color: color-mix(
+        in srgb,
+        var(--muted) 65%,
+        transparent
+    );
+
+    background: color-mix(
+        in srgb,
+        var(--bg) 58%,
+        transparent
+    );
+
+    border: 1px dashed color-mix(
+        in srgb,
+        var(--line) 60%,
+        transparent
+    );
+
+    border-radius: 11px;
+
+    font-size: 11px;
+    line-height: 1.2;
+    text-align: center;
+
+    opacity: 0.58;
+    cursor: pointer;
+
+    transition:
+        opacity 0.15s ease,
+        transform 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.has-selected-player .position-slot:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+
+    color: var(--text);
+    border-color: var(--accent-2);
+
+    background: color-mix(
+        in srgb,
+        var(--accent-2) 12%,
+        var(--bg)
+    );
+}
+
+.football-pitch.has-selected-player .position-slot:not(.assigned) {
+    opacity: 0.9;
+    color: var(--text);
+
+    border-color: color-mix(
+        in srgb,
+        var(--accent-2) 65%,
+        transparent
+    );
+
+    background: color-mix(
+        in srgb,
+        var(--accent-2) 9%,
+        var(--bg)
+    );
+}
+
+.position-slot.assigned {
+    opacity: 1;
+
+    color: var(--text);
+    background: color-mix(
+        in srgb,
+        var(--accent) 18%,
+        var(--bg)
+    );
+
+    border-style: solid;
+    border-color: var(--accent);
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.2),
+        inset 0 0 12px rgba(34, 197, 94, 0.08);
+}
+
+.position-slot .position-name {
+    max-width: 100%;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    font-weight: 700;
+}
+
+.position-slot .player-name {
+    max-width: 100%;
+    margin-top: 2px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: var(--muted);
+    font-size: 10px;
+}
+
+#tacticsContainer {
+    flex: 1;
+
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+
+    min-width: 0;
+    min-height: 0;
+
+    gap: 12px;
+    overflow: hidden;
+}
+
+/* =========================
+   LINEUP-LAYOUT
+========================= */
+
+.lineup-layout {
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr)
+        clamp(90px, 15%, 125px);
+
+    min-width: 0;
+    min-height: 0;
+
+    gap: 12px;
+    overflow: hidden;
+}
+
+.lineup-layout > aside {
+    min-width: 0;
+    min-height: 0;
+
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+
+    gap: 8px;
+    overflow: hidden;
+}
+
+.lineup-layout > aside > .bench {
+    min-height: 0;
+    height: 100%;
+}
+
+.lineup-sidebar {
+    min-width: 0;
+    min-height: 0;
+
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+
+    gap: 8px;
+    overflow: hidden;
+}
+
+.lineup-sidebar > .bench {
+    min-height: 0;
+    height: 100%;
+}
+
+.formation-summary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+    min-height: 44px;
+    padding: 10px;
+
+    color: var(--text);
+    background: color-mix(
+        in srgb,
+        var(--panel-2) 75%,
+        transparent
+    );
+
+    border: 1px solid var(--line);
+    border-radius: 14px;
+}
+
+/* =========================
+   ATTACKING
+========================= */
+
+.pos-lw {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.pos-lf {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.pos-st {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.pos-rf {
+    grid-column: 4;
+    grid-row: 1;
+}
+
+.pos-rw {
+    grid-column: 5;
+    grid-row: 1;
+}
+
+/* =========================
+   ATTACKING MIDFIELD
+========================= */
+
+.pos-lam {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.pos-cam {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.pos-ram {
+    grid-column: 5;
+    grid-row: 2;
+}
+
+/* =========================
+   CENTRAL MIDFIELD
+========================= */
+
+.pos-lm {
+    grid-column: 1;
+    grid-row: 3;
+}
+
+.pos-lcm {
+    grid-column: 2;
+    grid-row: 3;
+}
+
+.pos-cm {
+    grid-column: 3;
+    grid-row: 3;
+}
+
+.pos-rcm {
+    grid-column: 4;
+    grid-row: 3;
+}
+
+.pos-rm {
+    grid-column: 5;
+    grid-row: 3;
+}
+
+/* =========================
+   DEFENSIVE MIDFIELD
+========================= */
+
+.pos-ldm {
+    grid-column: 1;
+    grid-row: 4;
+}
+
+.pos-cdm {
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.pos-rdm {
+    grid-column: 5;
+    grid-row: 4;
+}
+
+/* =========================
+   DEFENCE
+========================= */
+
+.pos-lwb {
+    grid-column: 1;
+    grid-row: 5;
+}
+
+.pos-lb {
+    grid-column: 1;
+    grid-row: 6;
+}
+
+.pos-lcb {
+    grid-column: 2;
+    grid-row: 6;
+}
+
+.pos-cb {
+    grid-column: 3;
+    grid-row: 6;
+}
+
+.pos-rcb {
+    grid-column: 4;
+    grid-row: 6;
+}
+
+.pos-rb {
+    grid-column: 5;
+    grid-row: 6;
+}
+
+.pos-rwb {
+    grid-column: 5;
+    grid-row: 5;
+}
+
+/* =========================
+   GOALKEEPER
+========================= */
+
+.pos-gk {
+    grid-column: 3;
+    grid-row: 7;
+}
+
+/* =========================
+   BENCH
+========================= */
+
+.bench {
+    min-width: 0;
+    min-height: 0;
+
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+
+    gap: 8px;
+    padding: 10px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--line);
+    border-radius: 14px;
+
+    background: color-mix(
+        in srgb,
+        var(--panel-2) 75%,
+        transparent
+    );
+}
+
+.bench h3 {
+    margin: 0 0 4px;
+
+    color: var(--muted);
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.bench-list {
+    min-width: 0;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 8px;
+    padding-top: 2px;
+    padding-right: 4px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    overscroll-behavior: contain;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+}
+
+.bench-slot {
+    flex: 0 0 auto;
+
+    width: 100%;
+    min-height: 52px;
+    padding: 6px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    color: color-mix(
+        in srgb,
+        var(--muted) 65%,
+        transparent
+    );
+
+    background: color-mix(
+        in srgb,
+        var(--bg) 58%,
+        transparent
+    );
+
+    border: 1px dashed color-mix(
+        in srgb,
+        var(--line) 60%,
+        transparent
+    );
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    opacity: 0.58;
+    cursor: pointer;
+
+    transition:
+        opacity 0.15s ease,
+        transform 0.15s ease,
+        color 0.15s ease,
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        box-shadow 0.15s ease;
+}
+.has-selected-player .bench-slot:hover {
+    color: var(--text);
+    border-color: var(--accent-2);
+
+    background: color-mix(
+        in srgb,
+        var(--accent-2) 12%,
+        var(--bg)
+    );
+
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+.bench-list.has-selected-player .bench-slot:not(.assigned) {
+    opacity: 0.9;
+    color: var(--text);
+
+    border-color: color-mix(
+        in srgb,
+        var(--accent-2) 65%,
+        transparent
+    );
+
+    background: color-mix(
+        in srgb,
+        var(--accent-2) 9%,
+        var(--bg)
+    );
+}
+
+.bench-slot.assigned {
+    opacity: 1;
+
+    color: var(--text);
+
+    background: color-mix(
+        in srgb,
+        var(--accent) 18%,
+        var(--bg)
+    );
+
+    border-style: solid;
+    border-color: var(--accent);
+
+    box-shadow:
+        0 5px 12px rgba(0, 0, 0, 0.2),
+        inset 0 0 12px rgba(34, 197, 94, 0.08);
+}
+
+.bench-slot span {
+    font-weight: 700;
+}
+
+.bench-slot small {
+    max-width: 100%;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.bench-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.bench-list::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.bench-list::-webkit-scrollbar-thumb {
+    background-color: var(--line);
+    border-radius: 10px;
+}
+
+.bench-list::-webkit-scrollbar-thumb:hover {
+    background-color: var(--muted);
+}

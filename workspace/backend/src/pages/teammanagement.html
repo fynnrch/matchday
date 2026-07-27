@@ -34,9 +34,285 @@
     </aside>
 
     <main>
+        <div class="verticalContainer enable-flex">
+            
+            <!-- header -->
+            <section id="header">
+                <h2>Team Management</h2>
 
+                <div class="horizontalContainer center gap-small">
+                    <label class="muted" for="switchTeam">SWITCH TEAM</label>
+                    <select id="switchTeam"></select>
+                </div>
+            </section>
+
+            <div class="horizontalContainer enable-flex gap">
+                <div class="verticalContainer enable-flex">
+
+                    <!-- playerPanel -->
+                    <section id="playerPanel" class="panel">
+                        <div class="inline space-between lower">
+                            <div>
+                                <p id="teamDescr" class="muted">Team</p>
+                                <strong id="teamName" class="head-paragraph">team_name</strong>
+                            </div>
+
+                            <p>Ø Total: <strong id="ovr">XX</strong></p>
+                        </div>
+
+                        <div id="playerContainer"></div>
+
+                        <div class="playerPanelFooter">
+                            <hr>
+
+                            <div class="inline gap">
+                                <button id="buttonSelectAll">Select All</button>
+                                <button id="buttonDeselectAll" hidden>Deselect All</button>
+
+                                <select id="selectTraining">
+                                    <option value="">Select Training</option>
+                                    <option value="0">Endurance</option>
+                                    <option value="1">Kick</option>
+                                    <option value="2">Passing</option>
+                                </select>
+
+                                <select id="transferMarkt">
+                                    <option value="">Transfer to</option>
+                                    <option value="0">Talent Pool</option>
+                                    <option value="1">Transfer Market</option>
+                                    <option value="2">Loan Market</option>
+                                </select>
+
+                                <select id="transferTeam">
+                                    <option value="">Move to</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+                <div class="verticalContainer enable-flex gap">
+
+                    <!-- detailsPanel -->
+                    <section id="detailsPanel" class="panel">
+                        <div id="detailsContainer">
+                            <div>
+                                <button id="buttonStats" class="tab active">Stats</button>
+                                <button id="buttonHistory" class="tab">History</button>
+                            </div>
+                        </div>
+
+                        <div id="detailsBlock" class="multi-selection" hidden>
+                            <span class="player-count">X Players</span>
+                            <h2>Player Details Unavailable</h2>
+                            <p>Detailed player information is only available for a single selected player.</p>
+                        </div>
+                    </section>
+                
+                    <!-- tacticsPanel -->
+                    <section id="tacticsPanel" class="panel">
+                        <div id="tacticsContainer">
+                            <div>
+                                <button id="buttonLineup" class="tab active">Lineup</button>
+                                <button id="buttonTactics" class="tab">Tactics</button>
+                            </div>
+
+                            <div class="lineup-layout">
+                                <div id="footballPitch" class="football-pitch">
+                                    <!-- Angriff -->
+                                    <button class="position-slot pos-lw" data-position="LW" data-idPerson="">
+                                        <span class="position-name">LW</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-lf" data-position="LF" data-idPerson="">
+                                        <span class="position-name">LF</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-st" data-position="ST" data-idPerson="">
+                                        <span class="position-name">ST</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-rf" data-position="RF" data-idPerson="">
+                                        <span class="position-name">RF</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-rw" data-position="RW" data-idPerson="">
+                                        <span class="position-name">RW</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+
+                                    <!-- Offensives Mittelfeld -->
+                                    <button class="position-slot pos-lam" data-position="LAM" data-idPerson="">
+                                        <span class="position-name">LAM</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-cam" data-position="CAM" data-idPerson="">
+                                        <span class="position-name">CAM</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-ram" data-position="RAM" data-idPerson="">
+                                        <span class="position-name">RAM</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+
+                                    <!-- Mittelfeld -->
+                                    <button class="position-slot pos-lm" data-position="LM" data-idPerson="">
+                                        <span class="position-name">LM</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-lcm" data-position="LCM" data-idPerson="">
+                                        <span class="position-name">LCM</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-cm" data-position="CM" data-idPerson="">
+                                        <span class="position-name">CM</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-rcm" data-position="RCM" data-idPerson="">
+                                        <span class="position-name">RCM</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-rm" data-position="RM" data-idPerson="">
+                                        <span class="position-name">RM</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+
+                                    <!-- Defensives Mittelfeld -->
+                                    <button class="position-slot pos-ldm" data-position="LDM" data-idPerson="">
+                                        <span class="position-name">LDM</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-cdm" data-position="CDM" data-idPerson="">
+                                        <span class="position-name">CDM</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-rdm" data-position="RDM" data-idPerson="">
+                                        <span class="position-name">RDM</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+
+                                    <!-- Abwehr -->
+                                    <button class="position-slot pos-lwb" data-position="LWB" data-idPerson="">
+                                        <span class="position-name">LWB</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-lb" data-position="LB" data-idPerson="">
+                                        <span class="position-name">LB</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-lcb" data-position="LCB" data-idPerson="">
+                                        <span class="position-name">LCB</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-cb" data-position="CB" data-idPerson="">
+                                        <span class="position-name">CB</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-rcb" data-position="RCB" data-idPerson="">
+                                        <span class="position-name">RCB</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-rb" data-position="RB" data-idPerson="">
+                                        <span class="position-name">RB</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                    <button class="position-slot pos-rwb" data-position="RWB" data-idPerson="">
+                                        <span class="position-name">RWB</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+
+                                    <!-- Torwart -->
+                                    <button class="position-slot pos-gk" data-position="GK" data-idPerson="">
+                                        <span class="position-name">GK</span>
+                                        <span class="player-name">Empty</span>
+                                    </button>
+                                </div>
+
+                                <aside>
+                                    <div class="formation-summary">
+                                        <strong>X-X-X</strong>
+                                    </div>
+
+                                    <div class="bench">
+                                        <h3>Substitutes</h3>
+
+                                        <div id="bench" class="bench-list">
+                                            <button class="bench-slot" data-position="S1" data-idPerson="">
+                                                <span>1</span>
+                                                <small>Empty</small>
+                                            </button>
+
+                                            <button class="bench-slot" data-position="S2" data-idPerson="">
+                                                <span>2</span>
+                                                <small>Empty</small>
+                                            </button>
+
+                                            <button class="bench-slot" data-position="S3" data-idPerson="">
+                                                <span>3</span>
+                                                <small>Empty</small>
+                                            </button>
+
+                                            <button class="bench-slot" data-position="S4" data-idPerson="">
+                                                <span>4</span>
+                                                <small>Empty</small>
+                                            </button>
+
+                                            <button class="bench-slot" data-position="S5" data-idPerson="">
+                                                <span>5</span>
+                                                <small>Empty</small>
+                                            </button>
+
+                                            <button class="bench-slot" data-position="S6" data-idPerson="">
+                                                <span>6</span>
+                                                <small>Empty</small>
+                                            </button>
+
+                                            <button class="bench-slot" data-position="S7" data-idPerson="">
+                                                <span>7</span>
+                                                <small>Empty</small>
+                                            </button>
+
+                                            <button class="bench-slot" data-position="S8" data-idPerson="">
+                                                <span>8</span>
+                                                <small>Empty</small>
+                                            </button>
+
+                                            <button class="bench-slot" data-position="S9" data-idPerson="">
+                                                <span>9</span>
+                                                <small>Empty</small>
+                                            </button>
+
+                                            <button class="bench-slot" data-position="S10" data-idPerson="">
+                                                <span>10</span>
+                                                <small>Empty</small>
+                                            </button>
+
+                                            <button class="bench-slot" data-position="S11" data-idPerson="">
+                                                <span>11</span>
+                                                <small>Empty</small>
+                                            </button>
+
+                                            <button class="bench-slot" data-position="S12" data-idPerson="">
+                                                <span>12</span>
+                                                <small>Empty</small>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </aside>
+                            </div>
+
+                            <p class="lineup-help muted">
+                                Select a player, then assign them to a position.
+                            </p>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </div>
     </main>
 
     <script src="/assets/js/generic.js" defer></script>
-    <script src="/assets/js/teammanagement.js" defer></script>
+    <script src="/assets/js/teammanagement_api.js" defer></script>
+    <script src="/assets/js/teammanagement_gui.js" defer></script>
 </body>
