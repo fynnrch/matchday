@@ -4,22 +4,6 @@
     box-sizing: border-box;
 }
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
-}
-
-[hidden] {
-    display: none !important;
-}
-
-/* =========================
-   ROOT
-========================= */
-
 :root {
     --bg: #0f172a;
     --bg-2: #090e1b;
@@ -33,50 +17,65 @@ body {
     --line: #334155;
     --shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
     --radius: 18px;
+    --sidebar-width: 250px;
+    --sidebar-collapsed-width: 76px;
+    --content-max: 1800px;
 }
 
-/* =========================
-   BODY
-========================= */
+html {
+    width: 100%;
+    min-height: 100%;
+    color-scheme: dark;
+    background: var(--bg-2);
+}
 
 body {
-    display: flex;
     width: 100%;
-    height: 100dvh;
-
-    font-family: Inter, system-ui, sans-serif;
+    min-height: 100dvh;
+    margin: 0;
+    display: flex;
+    overflow: hidden;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     color: var(--text);
-
     background:
-        linear-gradient(rgba(0,0,0,.18), rgba(0,0,0,.18)),
-        repeating-linear-gradient(
-            90deg,
-            #174d2a 0,
-            #174d2a 95px,
-            #1b5930 95px,
-            #1b5930 190px
-        );
-
+        linear-gradient(rgba(0, 0, 0, .18), rgba(0, 0, 0, .18)),
+        repeating-linear-gradient(90deg, #174d2a 0 95px, #1b5930 95px 190px);
     background-attachment: fixed;
 }
 
-/* =========================
-   GENERAL
-========================= */
+[hidden] {
+    display: none !important;
+}
+
+button,
+select,
+input {
+    max-width: 100%;
+    font: inherit;
+}
 
 button,
 select {
-    padding: 8px;
-    font: inherit;
-    font-size: 18px;
-
+    min-height: 40px;
+    padding: 8px 10px;
     color: var(--text);
-    background-color: var(--panel-2);
-
+    background: var(--panel-2);
     border: 1px solid var(--line);
     border-radius: 10px;
+}
 
+button,
+select,
+input[type="range"] {
     cursor: pointer;
+}
+
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--accent-2) 75%, transparent);
+    outline-offset: 2px;
 }
 
 h2 {
@@ -86,19 +85,15 @@ h2 {
 
 hr {
     height: 1px;
-    margin: 5px 0 15px 0;
-
-    border: none;
-    background-color: var(--line);
+    margin: 5px 0 15px;
+    border: 0;
+    background: var(--line);
 }
-
-/* =========================
-   UTILITY CLASSES
-========================= */
 
 .horizontalContainer,
 .verticalContainer,
-.inline {
+.inline,
+.enable-flex {
     min-width: 0;
     min-height: 0;
 }
@@ -115,8 +110,6 @@ hr {
 
 .enable-flex {
     flex: 1 1 0;
-    min-width: 0;
-    min-height: 0;
 }
 
 .center {
@@ -133,79 +126,55 @@ hr {
     justify-content: space-between;
 }
 
-.gap {
-    gap: 25px;
-}
-
-.gap-small {
-    gap: 10px;
-}
-
-/* =========================
-   SIDEBAR
-========================= */
+.gap { gap: 25px; }
+.gap-small { gap: 10px; }
 
 .aside-menu {
-    flex: 0 0 250px;
-
+    flex: 0 0 var(--sidebar-width);
+    width: var(--sidebar-width);
+    height: 100dvh;
+    padding: 0 15px;
     display: flex;
     flex-direction: column;
-
-    width: 250px;
-    height: 100dvh;
-
-    padding: 0 15px;
     gap: 25px;
-
     overflow: hidden;
-
-    background-color: var(--bg-2);
+    background: var(--bg-2);
     border-right: 2px solid var(--line);
-
-    transition:
-        width 0.2s ease,
-        flex-basis 0.2s ease;
+    transition: width .2s ease, flex-basis .2s ease;
+    z-index: 20;
 }
 
 .aside-menu.collapsed {
-    flex-basis: 76px;
-    width: 76px;
+    flex-basis: var(--sidebar-collapsed-width);
+    width: var(--sidebar-collapsed-width);
 }
 
-.aside-menu.collapsed .textToVanish {
-    display: none;
-}
-
-.aside-menu.collapsed .asideButton {
-    padding-right: 125%;
-}
+.aside-menu.collapsed .textToVanish { display: none; }
+.aside-menu.collapsed .asideButton { justify-content: center; padding-inline: 0; }
 
 #asideHead {
     display: flex;
     align-items: center;
-
-    margin-top: 15px;
     gap: 15px;
+    margin-top: 15px;
 }
 
 #asideHead h2 {
     margin: 0;
-
     font-size: 20px;
-    letter-spacing: 0.08em;
+    letter-spacing: .08em;
     text-transform: uppercase;
     white-space: nowrap;
 }
 
 #toggleAsideMenu {
     flex: 0 0 46px;
-
     width: 46px;
     height: 46px;
     padding: 0;
-
+    display: inline-flex;
     justify-content: center;
-
+    align-items: center;
     font-size: 22px;
 }
 
@@ -216,48 +185,129 @@ hr {
 }
 
 .asideButton {
+    min-height: 46px;
+    padding: 10px 12px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-
-    min-height: 46px;
-    padding: 10px 12px;
     gap: 12px;
-
     color: var(--muted);
-    background-color: transparent;
-
+    background: transparent;
     border: 1px solid transparent;
-    border-radius: 10px;
-
-    cursor: pointer;
     white-space: nowrap;
-
-    transition:
-        color 0.2s ease,
-        background-color 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease;
+    transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease;
 }
 
-.asideButton:hover {
-    color: var(--text);
-    background-color: var(--panel-2);
-    border-color: var(--line);
-    transform: translateX(2px);
-}
-
+.asideButton:hover,
 .asideButton.active {
     color: var(--text);
-    background-color: var(--panel-2);
+    background: var(--panel-2);
     border-color: var(--line);
 }
 
-.asideButton strong {
-    font-size: 20px;
+.asideButton:hover { transform: translateX(2px); }
+.asideButton strong { font-size: 20px; }
+.textToVanish { margin: 0; white-space: nowrap; }
+
+#mainLoader {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    background: rgba(0, 0, 0, .55);
+    backdrop-filter: blur(3px);
+    z-index: 9999;
 }
 
-.textToVanish {
-    margin: 0;
-    white-space: nowrap;
+#loadingSpinner {
+    width: 64px;
+    height: 64px;
+    border: 6px solid rgba(255, 255, 255, .2);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: loading-spin .8s linear infinite;
+}
+
+#loadingText {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 2px 6px rgba(0, 0, 0, .5);
+}
+
+@keyframes loading-spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+    body {
+        display: block;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-attachment: scroll;
+    }
+
+    .aside-menu,
+    .aside-menu.collapsed {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: auto;
+        min-height: 64px;
+        padding: max(8px, env(safe-area-inset-top)) 10px 8px;
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        align-items: center;
+        gap: 10px;
+        overflow: visible;
+        border-right: 0;
+        border-bottom: 2px solid var(--line);
+    }
+
+    #asideHead { margin: 0; }
+    #asideHead h2 { display: none; }
+
+    #asideButtonList {
+        min-width: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 6px;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    #asideButtonList::-webkit-scrollbar { display: none; }
+
+    .aside-menu .asideButton,
+    .aside-menu.collapsed .asideButton {
+        flex: 0 0 auto;
+        min-height: 44px;
+        padding: 8px 10px;
+        justify-content: center;
+    }
+
+    .aside-menu .textToVanish,
+    .aside-menu.collapsed .textToVanish {
+        display: none;
+    }
+}
+
+@media (pointer: coarse) {
+    button,
+    select,
+    input[type="number"] {
+        min-height: 44px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+    }
 }

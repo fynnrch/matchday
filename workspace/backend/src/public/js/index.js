@@ -235,3 +235,14 @@ document.getElementById("loginForm").addEventListener("submit", async (e) => {
   
   if (response.ok) window.location.href = "/dashboard";
 });
+
+
+
+/*
+await fetch("/auth/logout", {
+    method: "POST",
+    credentials: "include"
+});
+
+window.location.href = "/";
+*/

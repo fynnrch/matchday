@@ -49,3 +49,37 @@ asideBtnTeamManagement.addEventListener("click", () => {
 asideBtnTalentPool.addEventListener("click", () => {
     window.location.href = "/talentpool";
 });
+
+// ==============
+// Loading screen
+// ==============
+
+const mainContainer = document.getElementById("mainContainer");
+const mainLoader = document.getElementById("mainLoader");
+const loadingText = document.getElementById("loadingText");
+
+async function execPackages(packages) {
+    mainContainer.hidden = true;
+    mainLoader.hidden = false;
+
+    for (const package of packages) {
+        try {
+            loadingText.textContent = `loading ${package.name}...`;
+            await package.exec();
+        }
+        catch (error) {
+            console.log(`Package ${package.name} raised an error\n${error}`);
+        }
+    }
+
+    mainContainer.hidden = false;
+    mainLoader.hidden = true;
+}
+
+/*
+const packages = [
+  { name: "package", exec: packageFunc },
+  { name: "anotherPackage", exec: anotherPackageFunc }
+]
+await execPackages(packages);
+*/

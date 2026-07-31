@@ -28,3 +28,9 @@ SELECT idLeague, number_of_teams - COUNT(idTeam) AS missingTeams FROM Leagues
 LEFT JOIN Teams_Leagues USING(idLeague)
 WHERE season = (SELECT `value_int` FROM Environment WHERE `key` = "season") OR season IS NULL
 ;
+
+-- v_players_teams_active
+CREATE OR REPLACE VIEW v_players_teams_active AS
+SELECT * FROM Players_Teams
+WHERE to_season IS NULL AND to_day IS NULL
+;

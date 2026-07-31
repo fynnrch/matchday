@@ -1,4 +1,4 @@
-from app.library.insert import insert_club, insert_team, insert_team_to_league, insert_person, insert_player, insert_player_to_team
+from app.library.insert import insert_club, insert_team, insert_tactic, insert_team_to_league, insert_person, insert_player, insert_player_to_team
 from app.library.select import select_missing_teams
 
 def npc_fill(conn):
@@ -21,6 +21,7 @@ def club_create(conn, idLeague):
     try:
         idClub = insert_club(conn)
         idTeam = insert_team(conn, idClub)
+        insert_tactic(conn, idTeam)
         insert_team_to_league(conn, idTeam, idLeague)
         
         playerAmount = 15

@@ -6,6 +6,7 @@ from app.library.select import select_current_season, select_current_day, select
 
 from app.models.club import Club
 from app.models.team import Team
+from app.models.tactic import Tactic
 from app.models.team_league import Team_League
 
 from app.models.person import Person
@@ -63,6 +64,20 @@ def insert_team(conn, idClub):
     ))
     
     return cursor.lastrowid
+
+def insert_tactic(conn, idTeam):
+    tactic = Tactic(
+        idTeam=idTeam
+    )
+
+    cursor = conn.cursor()
+    
+    cursor.execute(f"""
+            INSERT INTO `{DB_NAME}`.`Tactics` (`idTeam`)
+            VALUES (%s);
+        """, (
+            tactic.idTeam,
+    ))
 
 def insert_team_to_league(conn, idTeam, idLeague):
     team_league = Team_League(
@@ -190,17 +205,31 @@ def insert_teamstaff_to_team(conn, idPerson, idTeam):
 def insert_player(conn, idPerson):
     player = Player(
         idPerson=idPerson,
-        value=random.randint(0, 50)
+        pace=random.randint(0, 50),
+        endurance=random.randint(0, 50),
+        strength=random.randint(0, 50),
+        positioning=random.randint(0, 50),
+        ball_control=random.randint(0, 50),
+        passing=random.randint(0, 50),
+        shooting=random.randint(0, 50),
+        duel=random.randint(0, 50)
     )
     
     cursor = conn.cursor()
 
     cursor.execute(f"""
-            INSERT INTO `{DB_NAME}`.`Players` (`idPerson`, `value`)
-            VALUES (%s, %s);
+            INSERT INTO `{DB_NAME}`.`Players` (`idPerson`, `pace`, `endurance`, `strength`, `positioning`, `ball_control`, `passing`, `shooting`, `duel`)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
         """, (
             player.idPerson,
-            player.value
+            player.pace,
+            player.endurance,
+            player.strength,
+            player.positioning,
+            player.ball_control,
+            player.passing,
+            player.shooting,
+            player.duel
     ))
 
 def insert_player_to_team(conn, idPerson, idTeam):

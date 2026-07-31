@@ -82,15 +82,14 @@ export default class Auth {
 
                 const token = jwt.sign(
                     {
-                        idClub: idClub,
-                        idUser: idUser
+                        sub: idUser
                     },
                     JWT_SECRET, { expiresIn: "15m" }
                 );
 
                 res.cookie("token", token, {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === "production",
+                    secure: true,
                     sameSite: "lax",
                     maxAge: 1000 * 60 * 15
                 });
@@ -142,15 +141,14 @@ export default class Auth {
                 
                 const token = jwt.sign(
                     {
-                        idClub: user.idClub,
-                        idUser: user.idUser
+                        sub: user.idUser
                     },
                     JWT_SECRET, { expiresIn: "15m" }
                 );
 
                 res.cookie("token", token, {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === "production",
+                    secure: true,
                     sameSite: "lax",
                     maxAge: 1000 * 60 * 15
                 });
@@ -168,15 +166,14 @@ export default class Auth {
             try {
                 const token = jwt.sign(
                     {
-                        idClub: req.auth.idClub,
-                        idUser: req.auth.idUser
+                        sub: req.sub
                     },
                     JWT_SECRET, { expiresIn: "15m" }
                 );
 
                 res.cookie("token", token, {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === "production",
+                    secure: true,
                     sameSite: "lax",
                     maxAge: 1000 * 60 * 15
                 });
@@ -193,7 +190,7 @@ export default class Auth {
         this.app.post("/api/auth/logout", (req, res) => {
             res.clearCookie("token", {
                 httpOnly: true,
-                secure: process.env.NODE_ENV === "production",
+                secure: true,
                 sameSite: "lax"
             });
             return res.status(200).json({ res: "Logout successful" });
@@ -209,7 +206,8 @@ export default class Auth {
 
         try {
             const payload = jwt.verify(token, JWT_SECRET);
-            req.auth = payload; 
+            req.sub = payload.sub; 
+
             next();
         } 
         catch {
@@ -226,7 +224,8 @@ export default class Auth {
 
         try {
             const payload = jwt.verify(token, JWT_SECRET);
-            req.auth = payload; 
+            req.sub = payload.sub;
+
             next();
         } 
         catch {

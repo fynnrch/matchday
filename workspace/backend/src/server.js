@@ -41,7 +41,11 @@ const db = mysql.createPool({
 
 import Queries from "./routes/queries.js";
 import Auth from "./routes/auth.js";
-import Dashboard from "./routes/dashboard.js";
+
+import Lineups from "./routes/lineups.js";
+import Players from "./routes/players.js";
+import Tactics from "./routes/tactics.js";
+import Teams from "./routes/teams.js";
 
 // ============
 // Custom setup
@@ -50,7 +54,10 @@ import Dashboard from "./routes/dashboard.js";
 const auth = new Auth(app, db);
 const queries = new Queries(app, db);
 
-const dashboard = new Dashboard(app, auth, queries);
+const lineups = new Lineups(app, auth, db);
+const players = new Players(app, auth, db);
+const tactics = new Tactics(app, auth, db);
+const teams = new Teams(app, auth, db);
 
 // ===========
 // Page routes

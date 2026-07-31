@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <title>Matchday</title>
 
@@ -34,7 +35,7 @@
     </aside>
 
     <main>
-        <div class="verticalContainer enable-flex">
+        <div id="mainContainer" class="verticalContainer enable-flex">
             
             <!-- header -->
             <section id="header">
@@ -46,8 +47,8 @@
                 </div>
             </section>
 
-            <div class="horizontalContainer enable-flex gap">
-                <div class="verticalContainer enable-flex">
+            <div class="app-workspace">
+                <div class="workspace-column workspace-column--players">
 
                     <!-- playerPanel -->
                     <section id="playerPanel" class="panel">
@@ -71,16 +72,22 @@
 
                                 <select id="selectTraining">
                                     <option value="">Select Training</option>
-                                    <option value="0">Endurance</option>
-                                    <option value="1">Kick</option>
-                                    <option value="2">Passing</option>
+                                    <option value="rest">Rest</option>
+                                    <option value="pace">Pace</option>
+                                    <option value="endurance">Endurance</option>
+                                    <option value="strength">Strength</option>
+                                    <option value="positioning">Positioning</option>
+                                    <option value="ball-control">Ball Control</option>
+                                    <option value="passing">Passing</option>
+                                    <option value="shooting">Shooting</option>
+                                    <option value="duel">Duel</option>
                                 </select>
 
                                 <select id="transferMarkt">
                                     <option value="">Transfer to</option>
-                                    <option value="0">Talent Pool</option>
-                                    <option value="1">Transfer Market</option>
-                                    <option value="2">Loan Market</option>
+                                    <option value="talent-pool">Talent Pool</option>
+                                    <option value="transfer-market">Transfer Market</option>
+                                    <option value="loan-market">Loan Market</option>
                                 </select>
 
                                 <select id="transferTeam">
@@ -91,7 +98,7 @@
                     </section>
 
                 </div>
-                <div class="verticalContainer enable-flex gap">
+                <div class="workspace-column workspace-column--management">
 
                     <!-- detailsPanel -->
                     <section id="detailsPanel" class="panel">
@@ -99,6 +106,14 @@
                             <div>
                                 <button id="buttonStats" class="tab active">Stats</button>
                                 <button id="buttonHistory" class="tab">History</button>
+                            </div>
+
+                            <div>
+                                Placeholder Stats
+                            </div>
+
+                            <div hidden>
+                                Placeholder History
                             </div>
                         </div>
 
@@ -117,182 +132,184 @@
                                 <button id="buttonTactics" class="tab">Tactics</button>
                             </div>
 
-                            <div class="lineup-layout">
-                                <div id="footballPitch" class="football-pitch">
-                                    <!-- Angriff -->
-                                    <button class="position-slot pos-lw" data-position="LW" data-idPerson="">
+                            <div id="lineupView" class="lineup-layout">
+                                <div class="football-pitch-scroll" role="region" aria-label="Football lineup" tabindex="0">
+                                    <div id="footballPitch" class="football-pitch">
+                                    <!-- Attack -->
+                                    <button class="position-slot pos-lw" data-position-code="LW" data-id-person="" data-line="Attack">
                                         <span class="position-name">LW</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-lf" data-position="LF" data-idPerson="">
+                                    <button class="position-slot pos-lf" data-position-code="LF" data-id-person="" data-line="Attack">
                                         <span class="position-name">LF</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-st" data-position="ST" data-idPerson="">
+                                    <button class="position-slot pos-st" data-position-code="ST" data-id-person="" data-line="Attack">
                                         <span class="position-name">ST</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-rf" data-position="RF" data-idPerson="">
+                                    <button class="position-slot pos-rf" data-position-code="RF" data-id-person="" data-line="Attack">
                                         <span class="position-name">RF</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-rw" data-position="RW" data-idPerson="">
+                                    <button class="position-slot pos-rw" data-position-code="RW" data-id-person="" data-line="Attack">
                                         <span class="position-name">RW</span>
                                         <span class="player-name">Empty</span>
                                     </button>
 
-                                    <!-- Offensives Mittelfeld -->
-                                    <button class="position-slot pos-lam" data-position="LAM" data-idPerson="">
+                                    <!-- Offensive Midfield -->
+                                    <button class="position-slot pos-lam" data-position-code="LAM" data-id-person="" data-line="Midfield">
                                         <span class="position-name">LAM</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-cam" data-position="CAM" data-idPerson="">
+                                    <button class="position-slot pos-cam" data-position-code="CAM" data-id-person="" data-line="Midfield">
                                         <span class="position-name">CAM</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-ram" data-position="RAM" data-idPerson="">
+                                    <button class="position-slot pos-ram" data-position-code="RAM" data-id-person="" data-line="Midfield">
                                         <span class="position-name">RAM</span>
                                         <span class="player-name">Empty</span>
                                     </button>
 
-                                    <!-- Mittelfeld -->
-                                    <button class="position-slot pos-lm" data-position="LM" data-idPerson="">
+                                    <!-- Midfield -->
+                                    <button class="position-slot pos-lm" data-position-code="LM" data-id-person="" data-line="Midfield">
                                         <span class="position-name">LM</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-lcm" data-position="LCM" data-idPerson="">
+                                    <button class="position-slot pos-lcm" data-position-code="LCM" data-id-person="" data-line="Midfield">
                                         <span class="position-name">LCM</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-cm" data-position="CM" data-idPerson="">
+                                    <button class="position-slot pos-cm" data-position-code="CM" data-id-person="" data-line="Midfield">
                                         <span class="position-name">CM</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-rcm" data-position="RCM" data-idPerson="">
+                                    <button class="position-slot pos-rcm" data-position-code="RCM" data-id-person="" data-line="Midfield">
                                         <span class="position-name">RCM</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-rm" data-position="RM" data-idPerson="">
+                                    <button class="position-slot pos-rm" data-position-code="RM" data-id-person="" data-line="Midfield">
                                         <span class="position-name">RM</span>
                                         <span class="player-name">Empty</span>
                                     </button>
 
-                                    <!-- Defensives Mittelfeld -->
-                                    <button class="position-slot pos-ldm" data-position="LDM" data-idPerson="">
+                                    <!-- Defensive Midfield -->
+                                    <button class="position-slot pos-ldm" data-position-code="LDM" data-id-person="" data-line="Midfield">
                                         <span class="position-name">LDM</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-cdm" data-position="CDM" data-idPerson="">
+                                    <button class="position-slot pos-cdm" data-position-code="CDM" data-id-person="" data-line="Midfield">
                                         <span class="position-name">CDM</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-rdm" data-position="RDM" data-idPerson="">
+                                    <button class="position-slot pos-rdm" data-position-code="RDM" data-id-person="" data-line="Midfield">
                                         <span class="position-name">RDM</span>
                                         <span class="player-name">Empty</span>
                                     </button>
 
-                                    <!-- Abwehr -->
-                                    <button class="position-slot pos-lwb" data-position="LWB" data-idPerson="">
+                                    <!-- Defense -->
+                                    <button class="position-slot pos-lwb" data-position-code="LWB" data-id-person="" data-line="Defense">
                                         <span class="position-name">LWB</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-lb" data-position="LB" data-idPerson="">
+                                    <button class="position-slot pos-lb" data-position-code="LB" data-id-person="" data-line="Defense">
                                         <span class="position-name">LB</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-lcb" data-position="LCB" data-idPerson="">
+                                    <button class="position-slot pos-lcb" data-position-code="LCB" data-id-person="" data-line="Defense">
                                         <span class="position-name">LCB</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-cb" data-position="CB" data-idPerson="">
+                                    <button class="position-slot pos-cb" data-position-code="CB" data-id-person="" data-line="Defense">
                                         <span class="position-name">CB</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-rcb" data-position="RCB" data-idPerson="">
+                                    <button class="position-slot pos-rcb" data-position-code="RCB" data-id-person="" data-line="Defense">
                                         <span class="position-name">RCB</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-rb" data-position="RB" data-idPerson="">
+                                    <button class="position-slot pos-rb" data-position-code="RB" data-id-person="" data-line="Defense">
                                         <span class="position-name">RB</span>
                                         <span class="player-name">Empty</span>
                                     </button>
-                                    <button class="position-slot pos-rwb" data-position="RWB" data-idPerson="">
+                                    <button class="position-slot pos-rwb" data-position-code="RWB" data-id-person="" data-line="Defense">
                                         <span class="position-name">RWB</span>
                                         <span class="player-name">Empty</span>
                                     </button>
 
-                                    <!-- Torwart -->
-                                    <button class="position-slot pos-gk" data-position="GK" data-idPerson="">
+                                    <!-- Goalkeeper -->
+                                    <button class="position-slot pos-gk" data-position-code="GK" data-id-person="" data-line="Goalkeeper">
                                         <span class="position-name">GK</span>
                                         <span class="player-name">Empty</span>
                                     </button>
+                                    </div>
                                 </div>
 
                                 <aside>
                                     <div class="formation-summary">
-                                        <strong>X-X-X</strong>
+                                        <span id="lineupStatus" class="lineup-status">X/11 Players</span>
                                     </div>
 
                                     <div class="bench">
                                         <h3>Substitutes</h3>
 
                                         <div id="bench" class="bench-list">
-                                            <button class="bench-slot" data-position="S1" data-idPerson="">
+                                            <button class="bench-slot" data-position-code="S1" data-id-person="">
                                                 <span>1</span>
                                                 <small>Empty</small>
                                             </button>
 
-                                            <button class="bench-slot" data-position="S2" data-idPerson="">
+                                            <button class="bench-slot" data-position-code="S2" data-id-person="">
                                                 <span>2</span>
                                                 <small>Empty</small>
                                             </button>
 
-                                            <button class="bench-slot" data-position="S3" data-idPerson="">
+                                            <button class="bench-slot" data-position-code="S3" data-id-person="">
                                                 <span>3</span>
                                                 <small>Empty</small>
                                             </button>
 
-                                            <button class="bench-slot" data-position="S4" data-idPerson="">
+                                            <button class="bench-slot" data-position-code="S4" data-id-person="">
                                                 <span>4</span>
                                                 <small>Empty</small>
                                             </button>
 
-                                            <button class="bench-slot" data-position="S5" data-idPerson="">
+                                            <button class="bench-slot" data-position-code="S5" data-id-person="">
                                                 <span>5</span>
                                                 <small>Empty</small>
                                             </button>
 
-                                            <button class="bench-slot" data-position="S6" data-idPerson="">
+                                            <button class="bench-slot" data-position-code="S6" data-id-person="">
                                                 <span>6</span>
                                                 <small>Empty</small>
                                             </button>
 
-                                            <button class="bench-slot" data-position="S7" data-idPerson="">
+                                            <button class="bench-slot" data-position-code="S7" data-id-person="">
                                                 <span>7</span>
                                                 <small>Empty</small>
                                             </button>
 
-                                            <button class="bench-slot" data-position="S8" data-idPerson="">
+                                            <button class="bench-slot" data-position-code="S8" data-id-person="">
                                                 <span>8</span>
                                                 <small>Empty</small>
                                             </button>
 
-                                            <button class="bench-slot" data-position="S9" data-idPerson="">
+                                            <button class="bench-slot" data-position-code="S9" data-id-person="">
                                                 <span>9</span>
                                                 <small>Empty</small>
                                             </button>
 
-                                            <button class="bench-slot" data-position="S10" data-idPerson="">
+                                            <button class="bench-slot" data-position-code="S10" data-id-person="">
                                                 <span>10</span>
                                                 <small>Empty</small>
                                             </button>
 
-                                            <button class="bench-slot" data-position="S11" data-idPerson="">
+                                            <button class="bench-slot" data-position-code="S11" data-id-person="">
                                                 <span>11</span>
                                                 <small>Empty</small>
                                             </button>
 
-                                            <button class="bench-slot" data-position="S12" data-idPerson="">
+                                            <button class="bench-slot" data-position-code="S12" data-id-person="">
                                                 <span>12</span>
                                                 <small>Empty</small>
                                             </button>
@@ -300,9 +317,181 @@
                                     </div>
                                 </aside>
                             </div>
+                            
+                            <div id="tacticsView" class="tactics-view" hidden>
 
-                            <p class="lineup-help muted">
+                                <!-- Prese-Select -->
+                                <section
+                                    id="tacticsPresetSection"
+                                    class="tactics-card tactics-preset-card"
+                                >
+                                    <div class="tactics-section-heading">
+                                        <div>
+                                            <p class="tactics-eyebrow">Tactical profile</p>
+                                            <h3>Team Tactics</h3>
+                                        </div>
+
+                                        <div
+                                            id="tacticsTotalBadge"
+                                            class="tactics-total-badge"
+                                        >
+                                            <span>Total</span>
+                                            <strong id="tacticsTotalValue">100%</strong>
+                                        </div>
+                                    </div>
+
+                                    <label for="tacticsPresetSelect" class="tactics-label">
+                                        Preset
+                                    </label>
+
+                                    <select id="tacticsPresetSelect" class="tactics-preset-select">
+                                        <option value="balanced">Balanced</option>
+                                        <option value="tiki-taka">Tiki-Taka</option>
+                                        <option value="high-press">High Press</option>
+                                        <option value="counter">Counter Attack</option>
+                                        <option value="possession">Possession</option>
+                                        <option value="wing-play">Wing Play</option>
+                                        <option value="defensive">Defensive</option>
+                                        <option value="direct-play">Direct Play</option>
+                                        <option value="custom">Custom</option>
+                                    </select>
+
+                                    <p id="tacticsPresetDescription" class="tactics-description muted">
+                                        A balanced tactical approach without a strong focus on one
+                                        specific team skill.
+                                    </p>
+                                </section>
+
+                                <!-- Slider -->
+                                <section id="tacticsSlidersSection" class="tactics-card tactics-sliders-card">
+                                    <div class="tactics-section-heading">
+                                        <div>
+                                            <p class="tactics-eyebrow">Skill weighting</p>
+                                            <h3>Attribute Distribution</h3>
+                                        </div>
+
+                                        <button id="buttonResetTactics" type="button" class="tactics-reset-button">
+                                            Reset
+                                        </button>
+                                    </div>
+
+                                    <div id="tacticsSliderList" class="tactics-slider-list">
+
+                                        <div id="tacticsPaceRow" class="tactics-slider-row">
+                                            <div class="tactics-slider-header">
+                                                <label for="tacticsPaceRange">Pace</label>
+
+                                                <div class="tactics-number-wrapper">
+                                                    <input id="tacticsPaceInput" class="tactics-number-input" type="number" min="0" max="100" step="0.5" value="12.5">
+                                                    <span>%</span>
+                                                </div>
+                                            </div>
+
+                                            <input id="tacticsPaceRange" class="tactics-range" type="range" min="0" max="100" step="0.5" value="12.5">
+                                        </div>
+
+                                        <div id="tacticsEnduranceRow" class="tactics-slider-row">
+                                            <div class="tactics-slider-header">
+                                                <label for="tacticsEnduranceRange">Endurance</label>
+
+                                                <div class="tactics-number-wrapper">
+                                                    <input id="tacticsEnduranceInput" class="tactics-number-input" type="number" min="0" max="100" step="0.5" value="12.5">
+                                                    <span>%</span>
+                                                </div>
+                                            </div>
+
+                                            <input id="tacticsEnduranceRange" class="tactics-range" type="range" min="0" max="100" step="0.5" value="12.5">
+                                        </div>
+
+                                        <div id="tacticsStrengthRow" class="tactics-slider-row">
+                                            <div class="tactics-slider-header">
+                                                <label for="tacticsStrengthRange">Strength</label>
+
+                                                <div class="tactics-number-wrapper">
+                                                    <input id="tacticsStrengthInput" class="tactics-number-input" type="number" min="0" max="100" step="0.5" value="12.5">
+                                                    <span>%</span>
+                                                </div>
+                                            </div>
+
+                                            <input id="tacticsStrengthRange" class="tactics-range" type="range" min="0" max="100" step="0.5" value="12.5">
+                                        </div>
+
+                                        <div id="tacticsPositioningRow" class="tactics-slider-row">
+                                            <div class="tactics-slider-header">
+                                                <label for="tacticsPositioningRange">Positioning</label>
+
+                                                <div class="tactics-number-wrapper">
+                                                    <input id="tacticsPositioningInput" class="tactics-number-input" type="number" min="0" max="100" step="0.5" value="12.5">
+                                                    <span>%</span>
+                                                </div>
+                                            </div>
+
+                                            <input id="tacticsPositioningRange" class="tactics-range" type="range" min="0" max="100" step="0.5" value="12.5">
+                                        </div>
+
+                                        <div id="tacticsBallControlRow" class="tactics-slider-row">
+                                            <div class="tactics-slider-header">
+                                                <label for="tacticsBallControlRange">Ball Control</label>
+
+                                                <div class="tactics-number-wrapper">
+                                                    <input id="tacticsBallControlInput" class="tactics-number-input" type="number" min="0" max="100" step="0.5" value="12.5">
+                                                    <span>%</span>
+                                                </div>
+                                            </div>
+
+                                            <input id="tacticsBallControlRange" class="tactics-range" type="range" min="0" max="100" step="0.5" value="12.5">
+                                        </div>
+
+                                        <div id="tacticsPassingRow" class="tactics-slider-row">
+                                            <div class="tactics-slider-header">
+                                                <label for="tacticsPassingRange">Passing</label>
+
+                                                <div class="tactics-number-wrapper">
+                                                    <input id="tacticsPassingInput" class="tactics-number-input" type="number" min="0" max="100" step="0.5" value="12.5">
+                                                    <span>%</span>
+                                                </div>
+                                            </div>
+
+                                            <input id="tacticsPassingRange" class="tactics-range" type="range" min="0" max="100" step="0.5" value="12.5">
+                                        </div>
+
+                                        <div id="tacticsShootingRow" class="tactics-slider-row">
+                                            <div class="tactics-slider-header">
+                                                <label for="tacticsShootingRange">Shooting</label>
+
+                                                <div class="tactics-number-wrapper">
+                                                    <input id="tacticsShootingInput" class="tactics-number-input" type="number" min="0" max="100" step="0.5" value="12.5">
+                                                    <span>%</span>
+                                                </div>
+                                            </div>
+
+                                            <input id="tacticsShootingRange" class="tactics-range" type="range" min="0" max="100" step="0.5" value="12.5">
+                                        </div>
+
+                                        <div id="tacticsDuelRow" class="tactics-slider-row">
+                                            <div class="tactics-slider-header">
+                                                <label for="tacticsDuelRange">Duel</label>
+
+                                                <div class="tactics-number-wrapper">
+                                                    <input id="tacticsDuelInput" class="tactics-number-input" type="number" min="0" max="100" step="0.5" value="12.5">
+                                                    <span>%</span>
+                                                </div>
+                                            </div>
+
+                                            <input id="tacticsDuelRange" class="tactics-range" type="range" min="0" max="100" step="0.5" value="12.5">
+                                        </div>
+
+                                    </div>
+                                </section>
+
+                            </div>
+
+                            <p id="lineupHelp" class="lineup-help muted">
                                 Select a player, then assign them to a position.
+                            </p>
+
+                            <p id="tacticsHelp" class="lineup-help muted" hidden>
+                                Choose a preset or create an individual tactical profile.
                             </p>
                         </div>
                     </section>
@@ -310,9 +499,15 @@
                 </div>
             </div>
         </div>
+
+        <div id="mainLoader" hidden>
+            <div id="loadingSpinner"></div>
+            <div id="loadingText">loading...</div>
+        </div>
     </main>
 
     <script src="/assets/js/generic.js" defer></script>
     <script src="/assets/js/teammanagement_api.js" defer></script>
     <script src="/assets/js/teammanagement_gui.js" defer></script>
 </body>
+</html>
