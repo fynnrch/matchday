@@ -36,7 +36,7 @@ export default class Tactics {
             if (!tactics || typeof tactics !== "object" || Array.isArray(tactics)) return res.status(400).json({ res: "Invalid tactics object" });
 
             const requiredKeys = [ "pace", "endurance", "strength", "positioning", "ball_control", "passing", "shooting", "duel" ];
-            if (Object.keys(tactics).length !== requiredKeys.length || requiredKeys.some(key => !(key in tactics) || !Number.isFinite(tactics[key]) || tactics[key] < 0 || tactics[key] > 100)) return res.status(400).json({ res: "Invalid tactics data" });
+            if (Object.keys(tactics).length !== requiredKeys.length || requiredKeys.some(key => !(key in tactics) || !Number.isFinite(tactics[key]) || tactics[key] < 0 || tactics[key] > 100 * 100) || Object.values(tactics).reduce((sum, value) => sum + value, 0) !== 10000) return res.status(400).json({ res: "Invalid tactics data" });
 
             let connection;
 

@@ -77,7 +77,7 @@
                                     <option value="endurance">Endurance</option>
                                     <option value="strength">Strength</option>
                                     <option value="positioning">Positioning</option>
-                                    <option value="ball-control">Ball Control</option>
+                                    <option value="ball_control">Ball Control</option>
                                     <option value="passing">Passing</option>
                                     <option value="shooting">Shooting</option>
                                     <option value="duel">Duel</option>
@@ -108,12 +108,126 @@
                                 <button id="buttonHistory" class="tab">History</button>
                             </div>
 
-                            <div>
-                                Placeholder Stats
+                            <div id="tabStats" class="details-tab-content">
+                                <div class="player-details-header">
+                                    <div>
+                                        <p class="details-eyebrow">Player Profile</p>
+                                        <h3 id="detailsPlayerName">First Name Last Name</h3>
+                                    </div>
+
+                                    <div class="player-age-badge">
+                                        <span>Age</span>
+                                        <strong id="detailsPlayerAge">24</strong>
+                                    </div>
+                                </div>
+
+                                <div class="player-stats-grid">
+                                    <div class="player-stat">
+                                        <span>Pace</span>
+                                        <strong id="detailsPace">75</strong>
+                                    </div>
+
+                                    <div class="player-stat">
+                                        <span>Endurance</span>
+                                        <strong id="detailsEndurance">82</strong>
+                                    </div>
+
+                                    <div class="player-stat">
+                                        <span>Strength</span>
+                                        <strong id="detailsStrength">68</strong>
+                                    </div>
+
+                                    <div class="player-stat">
+                                        <span>Positioning</span>
+                                        <strong id="detailsPositioning">77</strong>
+                                    </div>
+
+                                    <div class="player-stat">
+                                        <span>Ball Control</span>
+                                        <strong id="detailsBallControl">84</strong>
+                                    </div>
+
+                                    <div class="player-stat">
+                                        <span>Passing</span>
+                                        <strong id="detailsPassing">80</strong>
+                                    </div>
+
+                                    <div class="player-stat">
+                                        <span>Shooting</span>
+                                        <strong id="detailsShooting">73</strong>
+                                    </div>
+
+                                    <div class="player-stat">
+                                        <span>Duel</span>
+                                        <strong id="detailsDuel">71</strong>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div hidden>
-                                Placeholder History
+
+                            <div id="tabHistory" class="details-tab-content" hidden>
+                                <div class="history-heading">
+                                    <div>
+                                        <p class="details-eyebrow">Career</p>
+                                        <h3>Club History</h3>
+                                    </div>
+                                </div>
+
+                                <div id="playerHistoryList" class="player-history-list">
+
+                                    <!-- Current club -->
+                                    <div class="history-entry history-entry--current">
+                                        <div class="history-club">
+                                            <span class="history-marker"></span>
+
+                                            <div>
+                                                <strong>Current Club</strong>
+                                                <span>Current Club</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="history-period">
+                                            <div>
+                                                <span>Start</span>
+                                                <strong>Season 6 · Day 1</strong>
+                                            </div>
+
+                                            <span class="history-arrow">→</span>
+
+                                            <div>
+                                                <span>End</span>
+                                                <strong>Present</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- History -->
+                                    <div class="history-entry">
+                                        <div class="history-club">
+                                            <span class="history-marker"></span>
+
+                                            <div>
+                                                <strong>FC Example</strong>
+                                                <span>Club</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="history-period">
+                                            <div>
+                                                <span>Start</span>
+                                                <strong>Season 3 · Day 12</strong>
+                                            </div>
+
+                                            <span class="history-arrow">→</span>
+
+                                            <div>
+                                                <span>End</span>
+                                                <strong>Season 5 · Day 28</strong>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
 
@@ -321,10 +435,7 @@
                             <div id="tacticsView" class="tactics-view" hidden>
 
                                 <!-- Prese-Select -->
-                                <section
-                                    id="tacticsPresetSection"
-                                    class="tactics-card tactics-preset-card"
-                                >
+                                <section id="tacticsPresetSection" class="tactics-card tactics-preset-card">
                                     <div class="tactics-section-heading">
                                         <div>
                                             <p class="tactics-eyebrow">Tactical profile</p>
@@ -353,7 +464,7 @@
                                         <option value="wing-play">Wing Play</option>
                                         <option value="defensive">Defensive</option>
                                         <option value="direct-play">Direct Play</option>
-                                        <option value="custom">Custom</option>
+                                        <option value="custom" hidden>Custom</option>
                                     </select>
 
                                     <p id="tacticsPresetDescription" class="tactics-description muted">

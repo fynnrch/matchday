@@ -47,6 +47,22 @@ async function fetchPlayers() {
             for (const p of team.players) p.ovr = Math.round((p.pace + p.endurance + p.strength + p.positioning + p.ball_control + p.passing + p.shooting + p.duel) / 8);
         })
     );
+
+    await Promise.all(
+        teams.flatMap(team =>
+            team.players.map(async player => {
+                const response = await fetch(
+                    `/api/players/fetchHistory/${encodeURIComponent(player.idPerson)}`,
+                    {
+                        method: "GET",
+                        credentials: "include"
+                    }
+                );
+
+                player.history = await response.json();
+            })
+        )
+    );
 }
 
 async function fetchLineups() {
@@ -71,11 +87,34 @@ async function fetchTactics() {
                 credentials: "include"
             });
             
-            if (!response.ok) throw new Error(`Failed to load tactics for team ${team.name}: ${response.status}`); 
+            if (!response.ok) throw new Error(`Failed to load tactics for team ${team.name}: ${response.status}`);
             team.tactics = await response.json();
+            for (const key in team.tactics) {
+                team.tactics[key] /= 100;
+            }
         })
     );
 }
+
+// ================
+// patch player dev
+// ================
+
+async function patchPlayerDev(idPerson, newDev) {
+    const response = await fetch(`/api/players/patchDev/${encodeURIComponent(idPerson)}`, {
+        method: "PATCH",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            newDev,
+        })
+    });
+    
+    if (!response.ok) throw new Error(`Failed to patch player dev: ${response.status}`); 
+}
+
 
 // ==========================
 // insert/delete lineup entry

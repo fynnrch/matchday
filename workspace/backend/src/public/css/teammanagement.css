@@ -774,3 +774,331 @@ main {
     .tactics-range::-webkit-slider-thumb { width: 22px; height: 22px; }
     .tactics-range::-moz-range-thumb { width: 19px; height: 19px; }
 }
+
+
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   PLAYER DETAILS - STATS / HISTORY
+   ========================================================= */
+
+#detailsContainer {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#detailsContainer > div:first-child {
+    flex: 0 0 auto;
+}
+
+.details-tab-content {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    margin-top: 12px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+}
+
+.details-tab-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.details-tab-content::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 999px;
+}
+
+
+/* =========================
+   STATS
+   ========================= */
+
+.player-details-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 14px;
+    padding: 14px;
+    background: color-mix(in srgb, var(--panel-2) 80%, transparent);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+}
+
+.player-details-header h3,
+.history-heading h3 {
+    margin: 0;
+    font-size: clamp(17px, 2vw, 21px);
+}
+
+.details-eyebrow {
+    margin: 0 0 4px !important;
+    color: var(--accent-2);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.player-age-badge {
+    flex: 0 0 auto;
+    min-width: 62px;
+    padding: 7px 11px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+.player-age-badge span {
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+}
+
+.player-age-badge strong {
+    color: var(--accent);
+    font-size: 17px;
+}
+
+.player-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.player-stat {
+    min-width: 0;
+    padding: 11px 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: color-mix(in srgb, var(--bg) 65%, transparent);
+    border: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+    border-radius: 10px;
+}
+
+.player-stat span {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.player-stat strong {
+    flex: 0 0 auto;
+    color: var(--text);
+    font-size: 15px;
+}
+
+
+/* =========================
+   HISTORY
+   ========================= */
+
+.history-heading {
+    margin-bottom: 12px;
+}
+
+.player-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.history-entry {
+    min-width: 0;
+    padding: 12px 14px;
+    display: grid;
+    grid-template-columns: minmax(130px, .8fr) minmax(240px, 1.2fr);
+    align-items: center;
+    gap: 16px;
+    background: color-mix(in srgb, var(--bg) 65%, transparent);
+    border: 1px solid color-mix(in srgb, var(--line) 75%, transparent);
+    border-radius: 11px;
+}
+
+.history-entry--current {
+    border-color: color-mix(in srgb, var(--accent-2) 55%, var(--line));
+    background: color-mix(in srgb, var(--accent-2) 8%, var(--bg));
+}
+
+.history-club {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.history-club > div {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.history-club strong {
+    overflow: hidden;
+    color: var(--text);
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.history-club span:not(.history-marker) {
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.history-marker {
+    flex: 0 0 auto;
+    width: 9px;
+    height: 9px;
+    background: var(--line);
+    border-radius: 50%;
+}
+
+.history-entry--current .history-marker {
+    background: var(--accent-2);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-2) 15%, transparent);
+}
+
+.history-period {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 10px;
+}
+
+.history-period > div {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.history-period > div:last-child {
+    text-align: right;
+}
+
+.history-period span {
+    color: var(--muted);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+}
+
+.history-period strong {
+    overflow: hidden;
+    color: var(--text);
+    font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.history-arrow {
+    color: var(--muted) !important;
+    font-size: 14px !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 1250px) {
+    .player-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+@media (max-width: 900px) {
+    #detailsContainer {
+        overflow: visible;
+    }
+
+    .details-tab-content {
+        max-height: none;
+        overflow: visible;
+    }
+
+    .player-stats-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+
+@media (max-width: 640px) {
+    .player-details-header {
+        padding: 12px;
+    }
+
+    .player-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .history-entry {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .history-period {
+        padding-left: 19px;
+    }
+}
+
+
+@media (max-width: 420px) {
+    .player-details-header {
+        align-items: flex-start;
+    }
+
+    .player-stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .player-stat {
+        min-height: 43px;
+    }
+
+    .history-entry {
+        padding: 11px;
+    }
+
+    .history-period {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        padding-left: 19px;
+    }
+
+    .history-period > div:last-child {
+        text-align: left;
+    }
+
+    .history-arrow {
+        display: none;
+    }
+}

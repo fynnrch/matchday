@@ -1,4 +1,5 @@
-// TODO zweites Team erstellen
+//TODO Stats und Hierachy bauen
+//TODO zweites Team erstellen
 
 // ==============
 // UI_initialLoad
@@ -8,7 +9,6 @@ function UI_initialLoad() {
     UI_initTeams();
     UI_initPlayers();
     UI_initPlayerActions();
-    UI_initStatsHistory();
     UI_initLineupTactics();
 }
 
@@ -93,10 +93,10 @@ function createPlayer(player) {
         <div class="inline enable-flex space-between">
             <div>
                 <p><strong>${player.first_name} ${player.last_name}</strong></p>
-                <p>${player.age} Years · ${player.matches} Matches</p>
+                <p>${player.age} Years</p>
             </div>
             <div class="inline center">
-                <p class="muted">Rest</p>
+                <p class="muted">${player.dev.split("_").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}</p>
             </div>
             <div class="inline gap center space-between">
                 <p><strong>${player.ovr}</strong></p>
@@ -139,6 +139,7 @@ function createPlayer(player) {
                 article.classList.add("active");
                 selectedPlayers = [player];
                 allSlots().find(slot => Number(slot.dataset.idPerson) === player.idPerson)?.classList.add("selected");
+                UI_initStatsHistory();
             }
         }
 
@@ -221,10 +222,15 @@ buttonDeselectAll.onclick = () => {
 
 //selectTraining
 selectTraining.onchange = async () => {
-    const packages = [
-        { name: "implementFunction", exec: () => console.log("TODO: implement function") }
-    ]
+    const newDev = selectTraining.value;
+
+    const packages = [];
+    selectedPlayers.forEach(player => packages.push({ name: "patchPlayerDev", exec: () => patchPlayerDev(player.idPerson, newDev) }));
+    packages.push({ name: "fetchPlayers", exec: () => fetchPlayers() });
+
     await execPackages(packages);
+
+    UI_initPlayers();
 }
 
 //transferMarkt
@@ -266,6 +272,9 @@ function configureSelection() {
 const buttonStats = document.getElementById("buttonStats");
 const buttonHistory = document.getElementById("buttonHistory");
 
+const tabStats = document.getElementById("tabStats");
+const tabHistory = document.getElementById("tabHistory");
+
 function UI_initStatsHistory() {
     
 }
@@ -275,6 +284,9 @@ buttonStats.onclick = () => {
 
     buttonStats.classList.toggle("active");
     buttonHistory.classList.toggle("active");
+
+    tabStats.hidden = false;
+    tabHistory.hidden = true;
 }
 
 buttonHistory.onclick = () => {
@@ -282,6 +294,9 @@ buttonHistory.onclick = () => {
 
     buttonStats.classList.toggle("active");
     buttonHistory.classList.toggle("active");
+
+    tabStats.hidden = true;
+    tabHistory.hidden = false;
 }
 
 // ================
@@ -309,6 +324,8 @@ const lineupStatus = document.getElementById("lineupStatus");
 function UI_initLineupTactics() {
     setupLineup();
     updateFormation();
+
+    setupTactics();
 }
 
 function setupLineup() {
@@ -462,45 +479,14 @@ const tacticsTotalBadge = document.getElementById("tacticsTotalBadge");
 const buttonResetTactics = document.getElementById("buttonResetTactics");
 
 const tacticControls = {
-    pace: {
-        range: document.getElementById("tacticsPaceRange"),
-        input: document.getElementById("tacticsPaceInput")
-    },
-
-    endurance: {
-        range: document.getElementById("tacticsEnduranceRange"),
-        input: document.getElementById("tacticsEnduranceInput")
-    },
-
-    strength: {
-        range: document.getElementById("tacticsStrengthRange"),
-        input: document.getElementById("tacticsStrengthInput")
-    },
-
-    positioning: {
-        range: document.getElementById("tacticsPositioningRange"),
-        input: document.getElementById("tacticsPositioningInput")
-    },
-
-    ball_control: {
-        range: document.getElementById("tacticsBallControlRange"),
-        input: document.getElementById("tacticsBallControlInput")
-    },
-
-    passing: {
-        range: document.getElementById("tacticsPassingRange"),
-        input: document.getElementById("tacticsPassingInput")
-    },
-
-    shooting: {
-        range: document.getElementById("tacticsShootingRange"),
-        input: document.getElementById("tacticsShootingInput")
-    },
-
-    duel: {
-        range: document.getElementById("tacticsDuelRange"),
-        input: document.getElementById("tacticsDuelInput")
-    }
+    pace: { range: document.getElementById("tacticsPaceRange"), input: document.getElementById("tacticsPaceInput") },
+    endurance: { range: document.getElementById("tacticsEnduranceRange"), input: document.getElementById("tacticsEnduranceInput") },
+    strength: { range: document.getElementById("tacticsStrengthRange"), input: document.getElementById("tacticsStrengthInput") },
+    positioning: { range: document.getElementById("tacticsPositioningRange"), input: document.getElementById("tacticsPositioningInput") },
+    ball_control: { range: document.getElementById("tacticsBallControlRange"), input: document.getElementById("tacticsBallControlInput") },
+    passing: { range: document.getElementById("tacticsPassingRange"), input: document.getElementById("tacticsPassingInput") },
+    shooting: { range: document.getElementById("tacticsShootingRange"), input: document.getElementById("tacticsShootingInput") },
+    duel: { range: document.getElementById("tacticsDuelRange"), input: document.getElementById("tacticsDuelInput") }
 };
 
 const tacticPresets = {
@@ -509,14 +495,7 @@ const tacticPresets = {
             "Short passing, close control and intelligent positioning.",
 
         values: {
-            pace: 8,
-            endurance: 10,
-            strength: 5,
-            positioning: 18,
-            ball_control: 20,
-            passing: 25,
-            shooting: 7,
-            duel: 7
+            pace: 8, endurance: 10, strength: 5, positioning: 18, ball_control: 20, passing: 25, shooting: 7, duel: 7
         }
     },
 
@@ -525,14 +504,7 @@ const tacticPresets = {
             "High intensity pressing with strong endurance and pace.",
 
         values: {
-            pace: 15,
-            endurance: 20,
-            strength: 10,
-            positioning: 15,
-            ball_control: 10,
-            passing: 10,
-            shooting: 8,
-            duel: 12
+            pace: 15, endurance: 20, strength: 10, positioning: 15, ball_control: 10, passing: 10, shooting: 8, duel: 12
         }
     },
 
@@ -541,14 +513,7 @@ const tacticPresets = {
             "Fast transitions and direct attacks after winning possession.",
 
         values: {
-            pace: 25,
-            endurance: 10,
-            strength: 8,
-            positioning: 12,
-            ball_control: 8,
-            passing: 8,
-            shooting: 17,
-            duel: 12
+            pace: 25, endurance: 10, strength: 8, positioning: 12, ball_control: 8, passing: 8, shooting: 17, duel: 12
         }
     },
 
@@ -557,14 +522,7 @@ const tacticPresets = {
             "Controlled possession with strong passing and ball control.",
 
         values: {
-            pace: 8,
-            endurance: 12,
-            strength: 5,
-            positioning: 18,
-            ball_control: 20,
-            passing: 22,
-            shooting: 5,
-            duel: 10
+            pace: 8, endurance: 12, strength: 5, positioning: 18, ball_control: 20, passing: 22, shooting: 5, duel: 10
         }
     },
 
@@ -573,14 +531,7 @@ const tacticPresets = {
             "Wide attacking play with pace, passing and ball control.",
 
         values: {
-            pace: 20,
-            endurance: 12,
-            strength: 8,
-            positioning: 10,
-            ball_control: 15,
-            passing: 15,
-            shooting: 10,
-            duel: 10
+            pace: 20, endurance: 12, strength: 8, positioning: 10, ball_control: 15, passing: 15, shooting: 10, duel: 10
         }
     },
 
@@ -589,14 +540,7 @@ const tacticPresets = {
             "Deep defensive organisation with strength and duelling.",
 
         values: {
-            pace: 5,
-            endurance: 15,
-            strength: 20,
-            positioning: 20,
-            ball_control: 8,
-            passing: 8,
-            shooting: 4,
-            duel: 20
+            pace: 5, endurance: 15, strength: 20, positioning: 20, ball_control: 8, passing: 8, shooting: 4, duel: 20
         }
     },
 
@@ -605,14 +549,7 @@ const tacticPresets = {
             "Direct passing and fast finishing with a balanced structure.",
 
         values: {
-            pace: 15,
-            endurance: 10,
-            strength: 12,
-            positioning: 12,
-            ball_control: 8,
-            passing: 20,
-            shooting: 15,
-            duel: 8
+            pace: 15, endurance: 10, strength: 12, positioning: 12, ball_control: 8, passing: 20, shooting: 15, duel: 8
         }
     },
 
@@ -621,30 +558,32 @@ const tacticPresets = {
             "A balanced tactical approach without a strong focus on one specific team skill.",
 
         values: {
-            pace: 12.5,
-            endurance: 12.5,
-            strength: 12.5,
-            positioning: 12.5,
-            ball_control: 12.5,
-            passing: 12.5,
-            shooting: 12.5,
-            duel: 12.5
+            pace: 12.5, endurance: 12.5, strength: 12.5, positioning: 12.5, ball_control: 12.5, passing: 12.5, shooting: 12.5, duel: 12.5
         }
     }
 };
 
-function setTacticValues(values) {
-    for (const [name, value] of Object.entries(values)) {
+// =====
+
+function setupTactics() {
+    const currTeam = teams.find(team => team.idTeam === active_idTeam);
+    const currTactics = currTeam.tactics;
+
+    setTacticValues(currTactics);
+    setTotalView(currTactics);
+    setTacticPreset(currTactics);
+}
+
+function setTacticValues(tactics) {
+    for (const [name, value] of Object.entries(tactics)) {
         const control = tacticControls[name];
 
         control.range.value = value;
         control.input.value = value;
     }
-
-    updateTacticsTotal();
 }
 
-function updateTacticsTotal() {
+function setTotalView(tactics) {
     const total = Object.values(tacticControls).reduce(
         (sum, control) => sum + Number(control.input.value || 0), 0
     );
@@ -657,45 +596,71 @@ function updateTacticsTotal() {
     );
 }
 
-function markTacticsAsCustom() {
-    tacticsPresetSelect.value = "custom";
+function setTacticPreset(tactics) {
+    const preset = Object.entries(tacticPresets).find(([name, preset]) =>
+        Object.entries(preset.values).every(([key, value]) =>
+            tactics[key] === value
+        )
+    )?.[0] ?? null;
 
-    tacticsPresetDescription.textContent =
-        "Individual values adjusted manually.";
+    if (!preset) markTacticsAs("custom");
+    else markTacticsAs(preset);
+
+
+}
+
+function markTacticsAs(preset) {
+    if (preset === "custom") {
+        tacticsPresetSelect.value = "custom";
+        tacticsPresetDescription.textContent = "Individual values adjusted manually.";
+    }
+    else {
+        tacticsPresetSelect.value = preset;
+        const newPreset = tacticPresets[preset];
+
+        tacticsPresetSelect.value = preset;
+        tacticsPresetDescription.textContent = newPreset.description;
+    }
+}
+
+function verifyTotalValue(tactics) {
+    const total = Object.values(tacticControls).reduce(
+        (sum, control) => sum + Number(control.input.value || 0), 0
+    );
+
+    if (Math.abs(total - 100) > 0.001) return false;
+    return true;
 }
 
 tacticsPresetSelect.onchange = () => {
     const selectedPreset = tacticsPresetSelect.value;
-
-    if (selectedPreset === "custom") {
-        tacticsPresetDescription.textContent =
-            "Individual values adjusted manually.";
-
-        return;
-    }
-
     const preset = tacticPresets[selectedPreset];
 
-    if (!preset) return;
-
-    tacticsPresetDescription.textContent = preset.description;
-
     setTacticValues(preset.values);
+    setTotalView(preset.values);
+    setTacticPreset(preset.values);
 
-    //set tactic preset on db
+    sendTactics();
 };
 
 for (const control of Object.values(tacticControls)) {
     control.range.oninput = () => {
         control.input.value = control.range.value;
 
-        markTacticsAsCustom();
-        updateTacticsTotal();
+        const currTeam = teams.find(team => team.idTeam === active_idTeam);
+        const currTactics = currTeam.tactics;
+
+        currTactics[control] = control.input.value;
+
+        setTotalView(currTactics);
+        setTacticPreset(currTactics);
+    };
+    control.range.onchange = () => {
+        if (verifyTotalValue()) sendTactics();
     };
 
     control.input.oninput = () => {
         let value = Number(control.input.value);
-
         if (!Number.isFinite(value)) value = 0;
 
         value = Math.max(0, Math.min(100, value));
@@ -703,24 +668,25 @@ for (const control of Object.values(tacticControls)) {
         control.input.value = value;
         control.range.value = value;
 
-        markTacticsAsCustom();
-        updateTacticsTotal();
+        const currTeam = teams.find(team => team.idTeam === active_idTeam);
+        const currTactics = currTeam.tactics;
+
+        currTactics[control] = control.input.value;
+
+        setTotalView(currTactics);
+        setTacticPreset(currTactics);
+    };
+    control.input.onchange = () => {
+        if (verifyTotalValue()) sendTactics();
     };
 }
 
 buttonResetTactics.onclick = () => {
     tacticsPresetSelect.value = "balanced";
+    tacticsPresetSelect.onchange();
 
-    const preset = tacticPresets.balanced;
-
-    tacticsPresetDescription.textContent = preset.description;
-
-    setTacticValues(preset.values);
 };
 
-setTacticValues(tacticPresets.balanced.values);
-
-//TODO räume tactic kram auf und binde sendTactics vernünftig an
 async function sendTactics() {
     const tactics = Object.fromEntries(
         Object.entries(tacticControls).map(([key, control]) => [
@@ -730,7 +696,10 @@ async function sendTactics() {
     );
 
     const packages = [
-        { name: "updateTactics", exec: () => updateTactics(active_idTeam, tactics) }
+        { name: "updateTactics", exec: () => updateTactics(active_idTeam, tactics) },
+        { name: "fetchTactics", exec: () => fetchTactics() }
     ]
     await execPackages(packages);
+
+    setupTactics();
 }
